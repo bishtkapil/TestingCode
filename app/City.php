@@ -19,3 +19,4 @@ class City extends Model
         return $this->belongsTo(state::class, 'country');
     }
 }
+//re enter
