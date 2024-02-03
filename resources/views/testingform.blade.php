@@ -43,7 +43,7 @@
 @endif
 
     <div class="container card p-5">
-            <form action="{{ url('/formstore') }}" method="post">
+            <form action="{{ url('/formstore') }}" method="post" autocomplete="off">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">

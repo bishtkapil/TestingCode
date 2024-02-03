@@ -8,8 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\delete;
-use App\testing;
 use PDF;
+use App\Country;
+use App\State;
+use App\Zone;
+use App\Division;
+use App\Post;
+use App\City;
 
 class HomeController extends Controller
 {
@@ -28,6 +33,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+     public function relation()
+     {
+        $country = Country::with('state')->with('city')->get()->toArray();
+        // $state = $country['state'];
+        // dd($country);
+        //    dd($state[0]['state']);
+        // $country = Country::with('state')->get()->toArray();
+        // $zoneData = Zone::with('division.post')->find(3)->toArray();
+        $zoneData = Zone::with('division')->with('posts')->find(3)->toArray();
+        return view('relationsselect',compact('country'));
+    //    dd($country);
+     }
+
+
     public function index()
     {     $data  =  DB::table('testing')->get();
         return view('home',compact('data'));
@@ -117,6 +137,12 @@ class HomeController extends Controller
     function ajaxdisplay(Request $request){
 
         $country = DB::table('country')->get();
+
+        // $data = DB::table('testing as t')
+        // ->select('t.*','c.country','c.id as country_id')
+        // ->leftjoin('country as c','c.id','=','t.country')
+        // ->get();
+        // dd($data);
         return view('ajaxdisplay',compact('country'));
      }
 

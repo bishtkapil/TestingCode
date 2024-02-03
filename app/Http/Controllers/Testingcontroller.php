@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Mail\NewRecordNotification;
 use Illuminate\Support\Facades\Mail;
 use DB;
+use App\Notification\welcomenotification;
+use Illuminate\Support\Facades\Notification;
 
 
 
@@ -32,28 +33,22 @@ class Testingcontroller extends Controller
             'course' => 'required',
             'phone' => 'required',
         ]);
-    //     DB::table('testing')->insert([
-    //         'name' => $request->input('name'),
-    //         'course' => $request->input('course'),
-    //         'email' => $request->input('email'),
-    //         'phone' => $request->input('phone'),
-    //    ]);
+    $recipientEmail =  DB::table('testing')->insert([
+            'name' => $request->input('name'),
+            'course' => $request->input('course'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+       ]);
 
-    //    return redirect('testingform')->with('success', 'Successfully inserted.');
-    $newRecordId = DB::table('testing')->insertGetId([
-        'name' => $request->input('name'),
-        'course' => $request->input('course'),
-        'email' => $request->input('email'),
-        'phone' => $request->input('phone'),
-    ]);
+        //    $recipientEmail = 'z16029470@gmail.com';
 
-    // Retrieve the newly inserted record
-    $newRecord = DB::table('testing')->find($newRecordId);
+           // Send email notification
+        //  Mail::to('z16029470@gmail.com')->send(new insertdata());
+        Notification::send($recipientEmail,new welcomenotification);
 
-    // Send email notification to admin
-    Mail::to('z16029470@example.com')->send(new NewRecordNotification($newRecord));
 
-    return redirect('testingform')->with('success', 'Successfully inserted.');
+       return redirect('testingform')->with('success', 'Successfully inserted.');
+
 
     }
 

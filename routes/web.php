@@ -1,5 +1,6 @@
 <?php
-
+use App\Mail\insertdata;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,10 @@ Route::post('/loginsave', 'Logincontroller@loginsave');
 // Route::get('/home', 'Logincontroller@home');
 
 Auth::routes();
+
+
+Route::get('/relationmodel', 'HomeController@relation');
+// Route::get('/relationmodel', 'HomeController@relation');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testingform', 'HomeController@form');

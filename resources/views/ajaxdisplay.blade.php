@@ -24,6 +24,15 @@
     .hidden {
             display: none;
         }
+
+        tr.india-row {
+            background-color: red;
+        }
+
+        tr.us-row {
+            background-color: blue;
+        }
+
 </style>
 </head>
 <body>
@@ -201,6 +210,16 @@ $(document).ready(function () {
                 // },
 
             ],
+
+            createdRow: function (row, data, dataIndex) {
+            var country = data.country.toLowerCase();
+            if (country === 'india') {
+                $(row).addClass('india-row');
+            } else if (country === 'us') {
+                $(row).addClass('us-row');
+            }
+        },
+    // });
 
 
         });
